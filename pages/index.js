@@ -17,7 +17,7 @@ export default function Home() {
   //console.log(nfts)
 
   async function loadNFTs() {
-    const provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")
+    const provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.matic.today")  // this provider is used when the function doesn't require msg.sender
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
     const data = await marketContract.fetchMarketItems()
@@ -45,7 +45,7 @@ export default function Home() {
   async function buyNft(nft) {
     const web3modal = new Web3Modal()
     const connection = await web3modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)
+    const provider = new ethers.providers.Web3Provider(connection)  // this is used when the function require msg.sender
     const signer = provider.getSigner()
     const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
 
